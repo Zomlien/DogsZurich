@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DogsZurich.Shared
 {
-    internal class Dogowner
+    public class Dogowner
     {
         public int Id { get; set; }
-        public Sex  Sexx { get; set; }
-        public Quartier Quartierr { get; set; }
-        public Kreis Kreiss { get; set; }
-        public Ageclass Ageclasss { get; set; }
+        public Sex  Sex { get; set; }
+        public Quartier Quartier { get; set; }
+        public Kreis Kreis { get; set; }
+        public Ageclass Ageclass { get; set; }
         public ICollection<Dog> Dogs { get; set; }
     }
 }

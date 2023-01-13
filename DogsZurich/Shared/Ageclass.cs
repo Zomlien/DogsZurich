@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DogsZurich.Shared
 {
-    internal class Ageclass
+    public class Ageclass
     {
         public int Id { get; set; }
         public string Description { get; set; }
