@@ -19,13 +19,14 @@ else
         <table class="table">
             <thead>
                 <tr>
-                    <th>Breedtype</th>
-                    <th>BreedStatus</th>
-                    <th>Breed 1</th>
-                    <th>Breed 2</th>
-                    <th>Sex of Dog</th>
-                    <th>Color</th
-                    <th>Owner Id</th>
+                    <th>Rassentype</th>
+                    <th>Reinrassig oder Mischling</th>
+                    <th>Rasse 1</th>
+                    <th>Rasse 2</th>
+                    <th>Geschlecht</th>
+                    <th>Fellfarbe</th
+                    <th>Besitzer Id</th>
+                    <th></th>
                 <th></th>
 
                 </tr>
@@ -42,26 +43,25 @@ else
                 @foreach (var item in dogs)
                 {
                                 <tr>
-                                    <td>@item.Breedtype</td>
-                                    <td>@item.Breedstatus</td>
-                                    <td>@item.Breed1</td>
-                                    <td>@item.Breed2</td>
-                                    <td>@item.Sex</td
-                                    <td>@item.Colors</td
+                                    <td>@item.Breedtype.Description</td>
+                                    <td>@item.Breedstatus.Description</td>
+                                    <td>@item.Breed1.Description</td>
+                                    <td>@item.Breed2.Description</td>
+                                    <td>@item.Sex.Description</td
+                                    <td>@item.Colors.Description</td>
                                     <td>@item.Dogowner.Id</td>
 
-                        <td><button class="btn btn-warning" @onclick="(() =>NavigateToEditDeleteComponent(item.Id))">Edit / Delete</button></td>
+                        <td><button class="btn btn-warning" @onclick="(() =>NavigateToEditDeleteComponent(item.Id))">Delete</button></td>
                                 </tr>
                 }
             }
                 <tr>
-                    <td><button class="btn btn-info" @onclick="(() =>NavigateToShipClassView())">Ship Class View</button></td>
-                    <td><button class="btn btn-info" @onclick="(() =>NavigateToSpeciesView())">Species View</button></td>
+                    <td><button class="btn btn-info" @onclick="(() =>NavigateToOwnerView())">Owner View</button></td>
                     <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td><button class="btn btn-info" @onclick="(() =>NavigateToCreateComponent())">Create Starship</button></td>
+                    <td><button class="btn btn-info" @onclick="(() =>NavigateToCreateComponent())">Add Dog</button></td>
                 </tr>
 
             </tbody>
@@ -71,28 +71,26 @@ else
 
 @code {
 
-    private List<Dog> dogs = null;
+    private List<Dog> dogs ;
     private const string ServiceEndpoint = "/api";
-    protected override async Task OnInitializedAsync() => await GetStarshipStatusesPriorities();
-    private async Task GetStarshipStatusesPriorities()
+
+    protected override async Task OnInitializedAsync() => await GetServerData();
+    private async Task GetServerData()
     {
-        dogs = await Http.GetFromJsonAsync<List<Dog>>($"{ServiceEndpoint}/Dog");
+        dogs = await Http.GetFromJsonAsync<List<Dog>>($"{ServiceEndpoint}/Dogs");
     }
     private void NavigateToEditDeleteComponent(long id)
     {
-        NavigationManager.NavigateTo($"/Dog/editDelete/{id}");
+        NavigationManager.NavigateTo($"/Dogs/editDelete/{id}");
     }
     private void NavigateToCreateComponent()
     {
-        NavigationManager.NavigateTo($"/Dog/create");
+        NavigationManager.NavigateTo($"/Dogs/create");
     }
-    private void NavigateToSpeciesView()
+    private void NavigateToOwnerView()
     {
-        NavigationManager.NavigateTo($"/Dog/view");
+        NavigationManager.NavigateTo($"/Dogowners/view");
     }
-    private void NavigateToShipClassView()
-    {
-        NavigationManager.NavigateTo($"/Dog/view");
-    }
+
 
 }

@@ -1,0 +1,94 @@
+﻿@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+@using DogsZurich.Shared
+
+@page "/dogowners/view"
+
+
+<PageTitle>DogsofZurich</PageTitle>
+
+<h1>Hunde der Stadt Zürich</h1>
+
+@if (owners == null)
+{
+            <p>Laden...</p>
+}
+else
+{
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Owner Id</th>
+                        <th>Altersklasse</th>
+                        <th>Geschlecht</th>
+                        <th>Kreis</th>
+                        <th>Quartier</th>
+                        <th>Anzahl Hunde</th>
+                        <th></th>
+                    
+
+                    </tr>
+                </thead>
+                <tbody>
+            @if (owners.Count() == 0)
+            {
+                                <tr>
+                                    <td colspan="3">There are no Dogs yet.</td>
+                                </tr>
+            }
+            else
+            {
+                @foreach (var item in owners)
+                {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.Ageclass.Description</td>
+                                                <td>@item.Sex.Description</td>
+                                                <td>@item.Kreis.Description</td>
+                                                <td>@item.Quartier.Description</td
+                                                <td></td>
+
+                                    <td><button class="btn btn-warning" @onclick="(() =>NavigateToEditDeleteComponent(item.Id))">Edit / Delete</button></td>
+                                            </tr>
+                }
+            }
+                    <tr>
+                        <td><button class="btn btn-info" @onclick="(() =>NavigateToOwnerView())">Owner View</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button class="btn btn-info" @onclick="(() =>NavigateToCreateComponent())">Add Dog</button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+}
+
+
+@code {
+
+    private List<Dogowner> owners;
+    private const string ServiceEndpoint = "/api";
+
+    protected override async Task OnInitializedAsync() => await GetServerData();
+    private async Task GetServerData()
+    {
+        owners = await Http.GetFromJsonAsync<List<Dogowner>>($"{ServiceEndpoint}/dogowners");
+    }
+    private void NavigateToEditDeleteComponent(long id)
+    {
+        NavigationManager.NavigateTo($"/Dogowners/ownereditDelete/{id}");
+    }
+    private void NavigateToCreateComponent()
+    {
+        NavigationManager.NavigateTo($"/Dogowners/ownercreate");
+    }
+    private void NavigateToOwnerView()
+    {
+        NavigationManager.NavigateTo($"/Dogowners/ownerview");
+    }
+
+
+}

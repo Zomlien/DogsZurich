@@ -1,0 +1,66 @@
+﻿@page "/addDog"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Threading.Tasks
+@using DogsZurich.Shared
+@using Microsoft.Extensions.Logging
+@inject ILogger<Dog> Logger
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+@inject IJSRuntime JS
+
+<h2>Neuer Hund</h2>
+
+<EditForm Model="@dog" OnValidSubmit="@HandleValidSubmit">
+  <table class="table">
+    <thead>
+        <tr>
+            <th colspan="4">Neuen Hund hinzufügen</th>
+        </tr>
+    </thead>
+        <tbody>
+                    <InputSelect @bind-Value="dog.Breed1">
+                        <option value="0">bitte wählen</option>                      
+                        @foreach (Breed breed in breeds)
+                        {
+                                <option value="@Breed.Id">@Breed.Description</option>
+                        }
+                    </InputSelect>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="submit" class="btnbtn-primary">
+                        Submit
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+        </table>
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+</EditForm>
+
+@code
+{
+    private Dog dog = new() { };
+    private List<Breed> breeds = new List<Breed>();
+
+
+    protected override async Task OnInitializedAsync() => await GetServerData();
+
+    private async Task GetServerData()
+    {
+        breeds = await Http.GetFromJsonAsync<List<Breed>>($"{ServiceEndpoint}/Author");
+    }
+    private void HandleValidSubmit()
+    {
+        Logger.LogInformation("HandleValidSubmit called");
+        CreateNewDog();
+        NavigationManager.NavigateTo("/");
+    }
+    private async void CreateNewDog()
+    {
+        var response = await Http.PostAsJsonAsync($"{ServiceEndpoint}/dogs", dog);
+    }
+}
