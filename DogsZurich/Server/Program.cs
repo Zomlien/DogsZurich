@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Default connection for controllers
+builder.Services.AddDbContext<DogContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
@@ -14,9 +18,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//Default connection for controllers
-builder.Services.AddDbContext<DogContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Configure the HTTP request pipeline.

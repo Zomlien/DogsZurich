@@ -1,0 +1,12 @@
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\bin\Debug\net6.0\DogsZurich.Shared.deps.json
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\bin\Debug\net6.0\DogsZurich.Shared.dll
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\bin\Debug\net6.0\DogsZurich.Shared.pdb
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\DogsZurich.Shared.csproj.AssemblyReference.cache
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\DogsZurich.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\DogsZurich.Shared.AssemblyInfoInputs.cache
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\DogsZurich.Shared.AssemblyInfo.cs
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\DogsZurich.Shared.csproj.CoreCompileInputs.cache
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\DogsZurich.Shared.dll
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\refint\DogsZurich.Shared.dll
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\DogsZurich.Shared.pdb
+C:\Users\freil6\Source\Repos\DogsZurich\DogsZurich\Shared\obj\Debug\net6.0\ref\DogsZurich.Shared.dll

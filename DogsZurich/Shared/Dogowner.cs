@@ -13,6 +13,6 @@ namespace DogsZurich.Shared
         public Quartier Quartier { get; set; }
         public Kreis Kreis { get; set; }
         public Ageclass Ageclass { get; set; }
-        public ICollection<Dog> Dogs { get; set; }
+        
     }
 }

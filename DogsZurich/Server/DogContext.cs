@@ -17,6 +17,7 @@ namespace DogsZurich.Server
         public DbSet<Quartier> Quartier { get; set; }
         public DbSet<Kreis> Kreis { get; set; }
         public DbSet<Sex> Sex { get; set; }
+        public DbSet<Dogowner> Dogowner { get; set; }
 
     }
 }

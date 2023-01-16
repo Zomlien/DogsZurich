@@ -16,6 +16,8 @@ namespace DogsZurich.Shared
         public Breed? Breed2 { get; set; }
         public Breedstatus Breedstatus { get; set; }
         public Breedtype Breedtype { get; set; }
+        public Dogowner Dogowner { get; set; }
+        
 
     }
 }
