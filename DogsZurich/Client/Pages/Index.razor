@@ -20,7 +20,7 @@ else
             <thead>
                 <tr>
                     <th>Rassentype</th>
-                    <th>Reinrassig oder Mischling</th>
+                    <th>Reinrassig <p>oder Mischling</p></th>
                     <th>Rasse 1</th>
                     <th>Rasse 2</th>
                     <th>Geschlecht</th>
@@ -46,7 +46,10 @@ else
                                     <td>@item.Breedtype.Description</td>
                                     <td>@item.Breedstatus.Description</td>
                                     <td>@item.Breed1.Description</td>
-                                    <td>@item.Breed2.Description</td>
+                                    @if ( @item.Breed2 == null){
+                                        <td> - </td>
+                                    }else {
+                                    <td>@item.Breed2.Description</td>}
                                     <td>@item.Sex.Description</td
                                     <td>@item.Colors.Description</td>
                                     <td>@item.Dogowner.Id</td>
@@ -85,7 +88,7 @@ else
     }
     private void NavigateToCreateComponent()
     {
-        NavigationManager.NavigateTo($"/Dogs/create");
+        NavigationManager.NavigateTo($"/Dogs/add");
     }
     private void NavigateToOwnerView()
     {

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DogsZurich.Server;
 using DogsZurich.Shared;
+using System.Drawing;
 
 namespace DogsZurich.Server.Controllers
 {
@@ -103,11 +104,28 @@ namespace DogsZurich.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Dog>> PostDog(Dog dog)
         {
-            //Dog newDog = ConvertToNewDog(dog);
-            _context.Dogs.Add(dog);
+            
+            Dog newDog = ConvertToNewDog(dog);
+            _context.Dogs.Add(newDog);
             await _context.SaveChangesAsync();
+            //Dog dog = _context.Dogs
+            //    .Where(s => s.Id == id)
+            //    .Where(t => t.Id == id)
+            //    .Where(c => c.Id == id)
+            //    .Where(x => x.Id == id)
+            //    .Where(b => b.Id == id)
+            //    .Where(a => a.Id == id)
+            //    .Where(o => o.Id == id)
+            //    .Include(s => s.Breedstatus)
+            //    .Include(t => t.Breedtype)
+            //    .Include(c => c.Colors)
+            //    .Include(x => x.Sex)
+            //    .Include(b => b.Breed1)
+            //    .Include(a => a.Breed2)
+            //    .Include(o => o.Dogowner)
+            //    .Single();
 
-            return CreatedAtAction("GetDog", new { id = dog.Id }, dog);
+            return CreatedAtAction("GetDog", new { id = dog.Id }, newDog);
         }
 
         // DELETE: api/Dogs/5
@@ -131,42 +149,48 @@ namespace DogsZurich.Server.Controllers
             return _context.Dogs.Any(e => e.Id == id);
         }
 
-        //private Dog ConvertToNewDog(Dog dogGiven)
-        //{
-        //    var dog = _context.Dogs
-        //    .Where(p => p.Id == dogGiven.Id)
-        //    .Include("Species")
-        //    .SingleOrDefault();
-        //    if (dog != null)
-        //    {
-        //        dog.Name = dogGiven.Name;
-        //        dog.Species.Clear();
-        //    }
-        //    else
-        //    {
-        //        dog = new Starship()
-        //        {
-        //            Id = dogGiven.Id,
-        //            Name = dogGiven.Name,
-        //            Builddate = starshipGiven.Builddate,
-        //            length = starshipGiven.length,
-        //            CargoSpace = starshipGiven.CargoSpace,
-        //            //ShipClass = null,
-        //            ShipClassId = starshipGiven.ShipClassId,
-        //            //ShipClass = new List<ShipClass>(),
-        //            Species = new List<Species>()
-        //        };
-        //    }
-        //    //foreach (ShipClass shipclass in starshipGiven.Shipclass)
-        //    //{
-        //    //    starship.Species.Add(_context.Species.Find(species.Id));
-        //    //}
-        //    foreach (Species species in starshipGiven.Species)
-        //    {
-        //        Species speciesfromDB = _context.Species.Find(species.Id);
-        //        starship.Species.Add(speciesfromDB);
-        //    }
-        //    return starship;
-        //}
+        private Dog ConvertToNewDog(Dog dogGiven)
+        {
+            var dog = _context.Dogs
+            .Where(p => p.Id == dogGiven.Id)
+                .Include(s => s.Breedstatus)
+                .Include(t => t.Breedtype)
+                .Include(c => c.Colors)
+                .Include(x => x.Sex)
+                .Include(b => b.Breed1)
+                .Include(a => a.Breed2)
+                .Include(o => o.Dogowner)
+            .SingleOrDefault();
+            if (dog != null)
+            {
+                dog.Id = dogGiven.Id;
+
+                dog.Breedstatus = dogGiven.Breedstatus;
+                    dog.Breedtype = dogGiven.Breedtype;
+                    dog.Breed1 = dogGiven.Breed1;
+                    dog.Breed2 = dogGiven.Breed2;
+                    dog.Sex = dogGiven.Sex;
+                   dog.Colors = dogGiven.Colors;
+                    dog.Dogowner = dogGiven.Dogowner;
+
+            }
+            else
+            {
+                dog = new Dog()
+                {
+                    Id = dogGiven.Id,
+                    Breedstatus = dogGiven.Breedstatus,
+                    Breedtype = dogGiven.Breedtype,
+                    Breed1 = dogGiven.Breed1,
+                    Breed2 = dogGiven.Breed2,
+                    Sex = dogGiven.Sex,
+                    Colors = dogGiven.Colors,
+                    Dogowner = dogGiven.Dogowner,
+
+            };
+        }
+
+            return dog;
+        }
     }
 }

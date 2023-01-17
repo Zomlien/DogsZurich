@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DogsZurich.Server.Migrations
 {
     [DbContext(typeof(DogContext))]
-    [Migration("20230116183651_Init")]
-    partial class Init
+    [Migration("20230117112431_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

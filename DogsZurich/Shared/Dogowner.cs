@@ -9,10 +9,14 @@ namespace DogsZurich.Shared
     public class Dogowner
     {
         public int Id { get; set; }
-        public Sex  Sex { get; set; }
-        public Quartier Quartier { get; set; }
-        public Kreis Kreis { get; set; }
-        public Ageclass Ageclass { get; set; }
+        public int SexId { get; set; }
+        public Sex?  Sex { get; set; }
+        public int QuartierId { get; set; }
+        public Quartier? Quartier { get; set; }
+        public int KreisId { get; set; }
+        public Kreis? Kreis { get; set; }
+        public int AgeclassId { get; set; }
+        public Ageclass? Ageclass { get; set; }
         
     }
 }

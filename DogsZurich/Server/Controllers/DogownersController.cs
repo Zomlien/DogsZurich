@@ -95,7 +95,19 @@ namespace DogsZurich.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Dogowner>> PostDogowner(Dogowner dogowner)
         {
-            _context.Dogowner.Add(dogowner);
+            Dogowner newDogOwner = new Dogowner
+            {
+                Id = dogowner.Id,
+                SexId = dogowner.SexId,
+                QuartierId = dogowner.QuartierId,
+                KreisId = dogowner.KreisId,
+                AgeclassId = dogowner.AgeclassId,
+                Sex = _context.Sex.Where(s => s.Id == dogowner.SexId).Single(),
+                Quartier = _context.Quartier.Where(s => s.Id == dogowner.QuartierId).Single(),
+                Kreis = _context.Kreis.Where(s => s.Id == dogowner.KreisId).Single(),
+                Ageclass = _context.Ageclass.Where(s => s.Id == dogowner.AgeclassId).Single()
+            };
+            _context.Dogowner.Add(newDogOwner);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetDogowner", new { id = dogowner.Id }, dogowner);
