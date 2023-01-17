@@ -18,7 +18,9 @@ else
 {
         <table class="table">
             <thead>
+                    
                 <tr>
+
                     <th>Rassentype</th>
                     <th>Reinrassig <p>oder Mischling</p></th>
                     <th>Rasse 1</th>
@@ -73,8 +75,9 @@ else
 
 
 @code {
-
+    
     private List<Dog> dogs ;
+    
     private const string ServiceEndpoint = "/api";
 
     protected override async Task OnInitializedAsync() => await GetServerData();

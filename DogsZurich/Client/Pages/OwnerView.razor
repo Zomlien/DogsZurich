@@ -54,12 +54,12 @@ else
                 }
             }
                     <tr>
-                        <td><button class="btn btn-info" @onclick="(() =>NavigateToOwnerView())">Owner View</button></td>
+                        <td><button class="btn btn-info" @onclick="(() =>NavigateToOwnerView())">Hundeübersicht</button></td>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><button class="btn btn-info" @onclick="(() =>NavigateToCreateComponent())">Add Dog</button></td>
+                        <td><button class="btn btn-info" @onclick="(() =>NavigateToCreateComponent())">Neuen Besitzer</button></td>
                     </tr>
 
                 </tbody>
@@ -79,15 +79,15 @@ else
     }
     private void NavigateToEditDeleteComponent(long id)
     {
-        NavigationManager.NavigateTo($"/Dogowners/ownereditDelete/{id}");
+        NavigationManager.NavigateTo($"/Dogowners/Delete/{id}");
     }
     private void NavigateToCreateComponent()
     {
-        NavigationManager.NavigateTo($"/Dogowners/ownercreate");
+        NavigationManager.NavigateTo($"/Dogowner/add");
     }
     private void NavigateToOwnerView()
     {
-        NavigationManager.NavigateTo($"/Dogowners/ownerview");
+        NavigationManager.NavigateTo($"/dogowners/view");
     }
 
 

@@ -27,19 +27,19 @@
             <tr>
                 <td>Rassen Typ:</td>
                 <td>
-                    <InputSelect @bind-Value="BreedtypeID">
-                        <option value="0">bitte wählen</option>
-                        @foreach (Breedtype breedtype in breedtypes)
-                        {
-                            <option value="@breedtype.Id">@breedtype.Description</option>
-                        }
-                    </InputSelect>
+    <InputSelect @bind-Value="dog.BreedtypeId" >
+        <option value="0">bitte wählen</option>
+                            @foreach (Breedtype breedtype in breedtypes)
+                            {
+                <option value="@breedtype.Id">@breedtype.Description</option>
+                            }
+    </InputSelect>
                 </td>
             </tr>
             <tr>
                 <td>Rassen Status:</td>
                 <td>
-                    <InputSelect @bind-Value="BreedStatID">
+                    <InputSelect @bind-Value="dog.BreedstatusId">
                         <option value="0">bitte wählen</option>
                         @foreach (Breedstatus breedstat in breedstatus)
                         {
@@ -51,7 +51,7 @@
             <tr>
                 <td>Rasse 1:</td>
                 <td>
-                    <InputSelect @bind-Value="Breed1ID">
+                    <InputSelect @bind-Value="dog.Breed1Id">
                         <option value="0">bitte wählen</option>
                         @foreach (Breed breed1 in breed1)
                         {
@@ -63,7 +63,7 @@
             <tr>
                 <td>Rasse 2:</td>
                 <td>
-                    <InputSelect @bind-Value="Breed2ID">
+                    <InputSelect @bind-Value="dog.Breed2Id">
                         <option value="0">bitte wählen</option>
                         @foreach (Breed breed2 in breed2)
                         {
@@ -75,7 +75,7 @@
                         <tr>
                 <td>Geschlecht:</td>
                 <td>
-                    <InputSelect @bind-Value="SexID">
+                    <InputSelect @bind-Value="dog.SexId">
                         <option value="0">bitte wählen</option>
                         @foreach (Sex sex in sex)
                         {
@@ -87,7 +87,7 @@
             <tr>
                 <td>Fellfarbe:</td>
                 <td>
-                    <InputSelect @bind-Value="ColorID">
+                    <InputSelect @bind-Value="dog.ColorsId">
                         <option value="0">bitte wählen</option>
                         @foreach (Color color in color)
                         {
@@ -99,7 +99,7 @@
             <tr>
                 <td>Beistzer ID:</td>
                 <td>
-                    <InputSelect @bind-Value="OwnerID">
+                    <InputSelect @bind-Value="dog.DogownerId">
                         <option value="0">bitte wählen</option>
                         @foreach (Dogowner owner in owner)
                         {

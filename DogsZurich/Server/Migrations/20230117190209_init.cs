@@ -163,7 +163,7 @@ namespace DogsZurich.Server.Migrations
                     SexId = table.Column<int>(type: "int", nullable: false),
                     ColorsId = table.Column<int>(type: "int", nullable: false),
                     Breed1Id = table.Column<int>(type: "int", nullable: false),
-                    Breed2Id = table.Column<int>(type: "int", nullable: true),
+                    Breed2Id = table.Column<int>(type: "int", nullable: false),
                     BreedstatusId = table.Column<int>(type: "int", nullable: false),
                     BreedtypeId = table.Column<int>(type: "int", nullable: false),
                     DogownerId = table.Column<int>(type: "int", nullable: false)
@@ -181,7 +181,8 @@ namespace DogsZurich.Server.Migrations
                         name: "FK_Dogs_Breed_Breed2Id",
                         column: x => x.Breed2Id,
                         principalTable: "Breed",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Dogs_Breedstatus_BreedstatusId",
                         column: x => x.BreedstatusId,

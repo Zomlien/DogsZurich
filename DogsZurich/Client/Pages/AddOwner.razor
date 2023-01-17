@@ -1,0 +1,142 @@
+﻿@page "/Dogowner/add"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Threading.Tasks
+@using DogsZurich.Shared
+@using Microsoft.Extensions.Logging
+@inject ILogger<Dog> Logger
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+@inject IJSRuntime JS
+
+<h2>Neuer Hund</h2>
+
+@if (dogowner == null || kreis == null)
+{
+        <p>loading...</p>
+}
+else
+{
+    <EditForm Model="@dogowner" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+      <table>
+        <thead>
+            <tr>
+                <th colspan="4">Neuen Besitzer hinzufügen</th>
+            </tr>
+        </thead>
+            <tbody>
+                <tr>
+                    <td>Altersklasse:</td>
+                    <td>
+        <InputSelect @bind-Value="dogowner.AgeclassId" >
+            <option value="0">bitte wählen</option>
+                            @foreach (Ageclass ageclass in ageclass)
+                            {
+                        <option value="@ageclass.Id">@ageclass.Description</option>
+                            }
+        </InputSelect>
+                    </td>
+                </tr>
+                
+                            <tr>
+                    <td>Geschlecht:</td>
+                    <td>
+                        <InputSelect @bind-Value="dogowner.SexId">
+                            <option value="0">bitte wählen</option>
+                            @foreach (Sex sex in sex)
+                            {
+                                    <option value="@sex.Id">@sex.Description</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kreis:</td>
+                    <td>
+                        <InputSelect @bind-Value="dogowner.KreisId">
+                            <option value="0">bitte wählen</option>
+                            @foreach (Kreis kreis in kreis)
+                            {
+                                    <option value="@kreis.Id">@kreis.Description</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Quartier:</td>
+                    <td>
+                        <InputSelect @bind-Value="dogowner.QuartierId">
+                            <option value="0">bitte wählen</option>
+                            @foreach (Quartier quartier in quartier)
+                            {
+                                    <option value="@quartier.Id">@quartier.Description</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+               
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" class="btnbtn-primary">
+                            Submit
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+            </table>
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+    </EditForm>
+}
+@code
+{
+    private Dogowner dogowner = new Dogowner();
+    
+    private List<Ageclass> ageclass;
+    private List<Quartier> quartier;
+    private List<Kreis> kreis;
+    private List<Sex> sex;
+
+
+   
+    private int AgeClassID = 0;
+    private int KreisID = 0;
+    private int QuartierID = 0;
+    private int SexID = 0;
+
+
+    private const string ServiceEndpoint = "/api";
+
+
+    protected override async Task OnInitializedAsync() => await GetServerData();
+
+    private async Task GetServerData()
+    {
+        ageclass = await Http.GetFromJsonAsync<List<Ageclass>>($"{ServiceEndpoint}/ageclasses");
+        quartier = await Http.GetFromJsonAsync<List<Quartier>>($"{ServiceEndpoint}/quartiers");
+        kreis = await Http.GetFromJsonAsync<List<Kreis>>($"{ServiceEndpoint}/kreis");
+        sex = await Http.GetFromJsonAsync<List<Sex>>($"{ServiceEndpoint}/sexes");
+        
+    }
+    private void HandleValidSubmit()
+    {
+        Logger.LogInformation("HandleValidSubmit called");
+        CreateNewDog();
+        NavigationManager.NavigateTo("/");
+    }
+    private async void CreateNewDog()
+    {
+        dogowner.Ageclass = ageclass.FirstOrDefault(bt => bt.Id == AgeClassID);
+        dogowner.Kreis = kreis.FirstOrDefault(bs => bs.Id == KreisID);
+        dogowner.Quartier = quartier.FirstOrDefault(bt => bt.Id == QuartierID);
+        dogowner.Sex = sex.FirstOrDefault(bt => bt.Id == SexID);
+
+
+        var response = await Http.PostAsJsonAsync($"{ServiceEndpoint}/dogowner", dogowner);
+    }
+}
