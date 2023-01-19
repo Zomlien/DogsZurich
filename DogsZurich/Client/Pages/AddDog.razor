@@ -24,6 +24,10 @@
         </tr>
     </thead>
         <tbody>
+                            <tr>
+                    <td> Dog Name: </td>
+                    <td> <input @bind="dog.Name" /> </td>
+                </tr>
             <tr>
                 <td>Rassen Typ:</td>
                 <td>
@@ -97,7 +101,7 @@
                 </td>
             </tr>
             <tr>
-                <td>Beistzer ID:</td>
+                <td>Besitzer ID:</td>
                 <td>
                     <InputSelect @bind-Value="dog.DogownerId">
                         <option value="0">bitte wählen</option>

@@ -47,14 +47,14 @@ else
                                                 <td>@item.Sex.Description</td>
                                                 <td>@item.Kreis.Description</td>
                                                 <td>@item.Quartier.Description</td>
-                                                @*<td>@GetNumberOfDogs(item.Id)</td>*@
+                                                
 
                                     <td><button class="btn btn-warning" @onclick="(() =>NavigateToEditDeleteComponent(item.Id))">Edit / Delete</button></td>
                                             </tr>
                 }
             }
                     <tr>
-                        <td><button class="btn btn-info" @onclick="(() =>NavigateToOwnerView())">Hundeübersicht</button></td>
+                        <td><button class="btn btn-info" @onclick="(() =>NavigateToDogView())">Hundeübersicht</button></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -77,12 +77,6 @@ else
     private List<Kreis> kreis;
     private List<Quartier> quartier;
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    await GetServerData();
-    //    kreis = await Http.GetFromJsonAsync<List<Kreis>>($"{ServiceEndpoint}/Kreis");
-    //    quartier = await Http.GetFromJsonAsync<List<Quartier>>($"{ServiceEndpoint}/Quartier");
-    //}
 
 
 
@@ -100,9 +94,9 @@ else
     {
         NavigationManager.NavigateTo($"/Dogowner/add");
     }
-    private void NavigateToOwnerView()
+    private void NavigateToDogView()
     {
-        NavigationManager.NavigateTo($"/dogowners/view");
+        NavigationManager.NavigateTo($"/");
     }
 
     private async Task<int> GetNumberOfDogs(int ownerId)

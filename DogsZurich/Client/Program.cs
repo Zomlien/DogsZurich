@@ -1,4 +1,5 @@
 using DogsZurich.Client;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

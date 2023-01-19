@@ -1,5 +1,10 @@
-﻿@inject HttpClient Http
+﻿@using System.Net.Http
+@using System.Net.Http.Json
+@using System.Threading.Tasks
+@using Microsoft.Extensions.Logging
+@inject HttpClient Http
 @inject NavigationManager NavigationManager
+@inject ILogger<Dog> Logger
 
 @using DogsZurich.Shared
 
@@ -20,7 +25,7 @@ else
             <thead>
                     
                 <tr>
-
+                        <th>Name des Hundes</th>
                     <th>Rassentype</th>
                     <th>Reinrassig <p>oder Mischling</p></th>
                     <th>Rasse 1</th>
@@ -47,7 +52,8 @@ else
     </select>
 
                     </td>
-                <th></th>
+                    <td><input type="text" @bind="searchTerm" placeholder="Namens Suche" />
+    <button @onclick="SearchDogs">Suchen</button></td>
 
                 </tr>
             </thead>
@@ -60,10 +66,12 @@ else
             }
             else
             {
-                @foreach (var item in dogs.Where(d => (selectedBreed1 == "" || d.Breed1.Description == selectedBreed1) && (selectedBreed2 == "" || d.Breed2.Description == selectedBreed2)))
+                @foreach (var item in dogs.Where(d => (selectedBreed1 == "" || d.Breed1.Description == selectedBreed1) && (selectedBreed2 == "" || d.Breed2.Description == selectedBreed2) && (string.IsNullOrEmpty(searchTerm) || d.Name.Contains(searchTerm))))
+                @*@foreach (var item in dogs.Where(d => (selectedBreed1 == "" || d.Breed1.Description == selectedBreed1) && (selectedBreed2 == "" || d.Breed2.Description == selectedBreed2)))*@
                 @*@foreach (var item in dogs)*@
                 {
                                 <tr>
+                                    <td>@item.Name</td>
                                     <td>@item.Breedtype.Description</td>
                                     <td>@item.Breedstatus.Description</td>
                                     <td>@item.Breed1.Description</td>
@@ -71,11 +79,13 @@ else
                                         <td> - </td>
                                     }else {
                                     <td>@item.Breed2.Description</td>}
-                                    <td>@item.Sex.Description</td
+                                    <td>@item.Sex.Description</td>
                                     <td>@item.Colors.Description</td>
                                     <td>@item.Dogowner.Id</td>
 
-                        <td><button class="btn btn-warning" @onclick="(() =>DeleteDog(item.Id))">Delete</button></td>
+                                    <td><button class="btn btn-warning" @onclick="(() =>DeleteDog(item.Id))">Delete</button></td>
+                                    <td><button class="btn btn-warning"  @onclick="(() =>NavigateToEditDog(item.Id))">Edit Dog</button></td>
+                       
                                 </tr>
                 }
             }
@@ -100,6 +110,8 @@ else
     private string selectedBreed2 = "";
     private List<Breed> breeds1;
     private List<Breed> breeds2;
+    private int selectedDogId;
+    private string searchTerm;
 
 
     private const string ServiceEndpoint = "/api";
@@ -125,7 +137,24 @@ else
         NavigationManager.NavigateTo($"/Dogowners/view");
     }
 
+    private void NavigateToEditDog(int id)
+    {
+
+        NavigationManager.NavigateTo($"/dogs/edit/{id}");
+    }
+
     
 
-
+    private async Task SearchDogs()
+{
+var filteredDogs = await Http.GetFromJsonAsync<List<Dog>>($"{ServiceEndpoint}/Dogs?searchTerm={searchTerm}");
+if (filteredDogs != null)
+{
+dogs = filteredDogs;
+}
+else
+{
+Logger.LogError("No dogs found with that name");
+}
+}
 }

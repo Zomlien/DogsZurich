@@ -108,6 +108,7 @@ namespace DogsZurich.Server.Controllers
             Dog newDog = new Dog
             {
                 Id = dog.Id,
+                Name=dog.Name,
                 SexId = dog.SexId,
                 ColorsId = dog.ColorsId,
                 Breed1Id = dog.Breed1Id,
@@ -145,48 +146,6 @@ namespace DogsZurich.Server.Controllers
             return _context.Dogs.Any(e => e.Id == id);
         }
 
-        //private Dog ConvertToNewDog(Dog dogGiven)
-        //{
-        //    var dog = _context.Dogs
-        //    .Where(p => p.Id == dogGiven.Id)
-        //        .Include(s => s.Breedstatus)
-        //        .Include(t => t.Breedtype)
-        //        .Include(c => c.Colors)
-        //        .Include(x => x.Sex)
-        //        .Include(b => b.Breed1)
-        //        .Include(a => a.Breed2)
-        //        .Include(o => o.Dogowner)
-        //    .SingleOrDefault();
-        //    if (dog != null)
-        //    {
-        //        dog.Id = dogGiven.Id;
 
-        //        dog.Breedstatus = dogGiven.Breedstatus;
-        //            dog.Breedtype = dogGiven.Breedtype;
-        //            dog.Breed1 = dogGiven.Breed1;
-        //            dog.Breed2 = dogGiven.Breed2;
-        //            dog.Sex = dogGiven.Sex;
-        //           dog.Colors = dogGiven.Colors;
-        //            dog.Dogowner = dogGiven.Dogowner;
-
-        //    }
-        //    else
-        //    {
-        //        dog = new Dog()
-        //        {
-        //            Id = dogGiven.Id,
-        //            Breedstatus = dogGiven.Breedstatus,
-        //            Breedtype = dogGiven.Breedtype,
-        //            Breed1 = dogGiven.Breed1,
-        //            Breed2 = dogGiven.Breed2,
-        //            Sex = dogGiven.Sex,
-        //            Colors = dogGiven.Colors,
-        //            Dogowner = dogGiven.Dogowner,
-
-        //    };
-        //}
-
-        //    return dog;
-        //}
     }
 }
