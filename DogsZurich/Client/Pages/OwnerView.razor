@@ -25,6 +25,8 @@ else
                         <th>Kreis</th>
                         <th>Quartier</th>
                         <th>Anzahl Hunde</th>
+
+*@
                         <th></th>
                     
 
@@ -39,6 +41,8 @@ else
             }
             else
             {
+              
+
                 @foreach (var item in owners)
                 {
                                             <tr>
@@ -46,8 +50,8 @@ else
                                                 <td>@item.Ageclass.Description</td>
                                                 <td>@item.Sex.Description</td>
                                                 <td>@item.Kreis.Description</td>
-                                                <td>@item.Quartier.Description</td
-                                                <td></td>
+                                                <td>@item.Quartier.Description</td>
+                                                @*<td>@GetNumberOfDogs(item.Id)</td>*@
 
                                     <td><button class="btn btn-warning" @onclick="(() =>NavigateToEditDeleteComponent(item.Id))">Edit / Delete</button></td>
                                             </tr>
@@ -71,11 +75,26 @@ else
 
     private List<Dogowner> owners;
     private const string ServiceEndpoint = "/api";
+    private string selectedKreis = "";
+    private string selectedQuartier = "";
+
+    private List<Kreis> kreis;
+    private List<Quartier> quartier;
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    await GetServerData();
+    //    kreis = await Http.GetFromJsonAsync<List<Kreis>>($"{ServiceEndpoint}/Kreis");
+    //    quartier = await Http.GetFromJsonAsync<List<Quartier>>($"{ServiceEndpoint}/Quartier");
+    //}
+
+
 
     protected override async Task OnInitializedAsync() => await GetServerData();
     private async Task GetServerData()
     {
         owners = await Http.GetFromJsonAsync<List<Dogowner>>($"{ServiceEndpoint}/dogowners");
+
     }
     private void NavigateToEditDeleteComponent(long id)
     {
@@ -90,5 +109,9 @@ else
         NavigationManager.NavigateTo($"/dogowners/view");
     }
 
-
+    private async Task<int> GetNumberOfDogs(int ownerId)
+    {
+        var dogs = await Http.GetFromJsonAsync<List<Dog>>($"{ServiceEndpoint}/dogs");
+        return dogs.Where(d => d.DogownerId == ownerId).Count();
+    }
 }

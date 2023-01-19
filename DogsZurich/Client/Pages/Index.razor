@@ -28,7 +28,25 @@ else
                     <th>Geschlecht</th>
                     <th>Fellfarbe</th
                     <th>Besitzer Id</th>
-                    <th></th>
+                    <td>
+                            <th>Rasse 1</th>
+                            <select @bind="selectedBreed1">
+        <option value="">All</option>
+                        @foreach (var breed in breeds1)
+                        {
+                <option value="@breed.Description">@breed.Description</option>
+                        }
+    </select>
+        <th>Rasse 2</th>
+    <select @bind="selectedBreed2">
+        <option value="">All</option>
+                        @foreach (var breed in breeds2)
+                        {
+                <option value="@breed.Description">@breed.Description</option>
+                        }
+    </select>
+
+                    </td>
                 <th></th>
 
                 </tr>
@@ -42,7 +60,8 @@ else
             }
             else
             {
-                @foreach (var item in dogs)
+                @foreach (var item in dogs.Where(d => (selectedBreed1 == "" || d.Breed1.Description == selectedBreed1) && (selectedBreed2 == "" || d.Breed2.Description == selectedBreed2)))
+                @*@foreach (var item in dogs)*@
                 {
                                 <tr>
                                     <td>@item.Breedtype.Description</td>
@@ -56,7 +75,7 @@ else
                                     <td>@item.Colors.Description</td>
                                     <td>@item.Dogowner.Id</td>
 
-                        <td><button class="btn btn-warning" @onclick="(() =>NavigateToEditDeleteComponent(item.Id))">Delete</button></td>
+                        <td><button class="btn btn-warning" @onclick="(() =>DeleteDog(item.Id))">Delete</button></td>
                                 </tr>
                 }
             }
@@ -75,19 +94,27 @@ else
 
 
 @code {
-    
+
     private List<Dog> dogs ;
-    
+    private string selectedBreed1 = "";
+    private string selectedBreed2 = "";
+    private List<Breed> breeds1;
+    private List<Breed> breeds2;
+
+
     private const string ServiceEndpoint = "/api";
 
     protected override async Task OnInitializedAsync() => await GetServerData();
     private async Task GetServerData()
     {
         dogs = await Http.GetFromJsonAsync<List<Dog>>($"{ServiceEndpoint}/Dogs");
+        breeds1 = await Http.GetFromJsonAsync<List<Breed>>($"{ServiceEndpoint}/Breeds");
+        breeds2 = await Http.GetFromJsonAsync<List<Breed>>($"{ServiceEndpoint}/Breeds");
     }
-    private void NavigateToEditDeleteComponent(long id)
+    private async Task DeleteDog(int id)
     {
-        NavigationManager.NavigateTo($"/Dogs/editDelete/{id}");
+        await Http.DeleteAsync($"{ServiceEndpoint}/Dogs/{id}");
+        await GetServerData();
     }
     private void NavigateToCreateComponent()
     {
@@ -97,6 +124,8 @@ else
     {
         NavigationManager.NavigateTo($"/Dogowners/view");
     }
+
+    
 
 
 }

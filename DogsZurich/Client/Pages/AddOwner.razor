@@ -9,7 +9,7 @@
 @inject HttpClient Http
 @inject IJSRuntime JS
 
-<h2>Neuer Hund</h2>
+<h2>Neuer Hundebesitzer</h2>
 
 @if (dogowner == null || kreis == null)
 {
@@ -127,7 +127,7 @@ else
     {
         Logger.LogInformation("HandleValidSubmit called");
         CreateNewDog();
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/dogowners/view");
     }
     private async void CreateNewDog()
     {
@@ -137,6 +137,6 @@ else
         dogowner.Sex = sex.FirstOrDefault(bt => bt.Id == SexID);
 
 
-        var response = await Http.PostAsJsonAsync($"{ServiceEndpoint}/dogowner", dogowner);
+        var response = await Http.PostAsJsonAsync($"{ServiceEndpoint}/dogowners", dogowner);
     }
 }

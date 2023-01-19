@@ -197,14 +197,14 @@
       "netstandard.dll": "sha256-kBK\/QJy7\/skP97jqnvXnOFMrhWS8HZ1bsADFK\/gZkyM=",
       "System.Private.CoreLib.dll": "sha256-3webPuyNUXfAFKY5c1tC\/jBVrjZHelBwvXrr1E9VJuk=",
       "DogsZurich.Shared.dll": "sha256-zVYGnEMcD37MxBgWIElmrpjxgOIrD16pSe5MB6WzWP8=",
-      "DogsZurich.Client.dll": "sha256-HHviO+OFgJlD0DDe03fJuxLQzM8FrhmGboyYLEgEwE4="
+      "DogsZurich.Client.dll": "sha256-JjpxLZPPyavjUxaVPYVVvtn5\/8ZeMfhECO\/y7PIJXS8="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
       "DogsZurich.Shared.pdb": "sha256-bOc3RzcrK9GAYss8tC5sNefkK1YHTFKe3PJewYuPUWo=",
-      "DogsZurich.Client.pdb": "sha256-6G6Ihh4CKHLJDYBiu70Bk\/rOXaOg11e2xsT5GHgvmRI="
+      "DogsZurich.Client.pdb": "sha256-ltHsoS5N0isZIOXiAxOWpT4KeAIdkD+iYCuNtsG0QhE="
     },
     "runtime": {
       "dotnet.6.0.13.am1nwdxwr2.js": "sha256-X\/515F1HEzgsDZdY8BJjt8YUwrWngHGZkMnpClhsrpY=",

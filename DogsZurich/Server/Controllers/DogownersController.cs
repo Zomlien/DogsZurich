@@ -110,7 +110,7 @@ namespace DogsZurich.Server.Controllers
             _context.Dogowner.Add(newDogOwner);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDogowner", new { id = dogowner.Id }, dogowner);
+            return CreatedAtAction("GetDogowner", new { id = dogowner.Id }, newDogOwner);
         }
 
         // DELETE: api/Dogowners/5
