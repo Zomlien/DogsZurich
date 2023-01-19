@@ -67,8 +67,7 @@ else
             else
             {
                 @foreach (var item in dogs.Where(d => (selectedBreed1 == "" || d.Breed1.Description == selectedBreed1) && (selectedBreed2 == "" || d.Breed2.Description == selectedBreed2) && (string.IsNullOrEmpty(searchTerm) || d.Name.Contains(searchTerm))))
-                @*@foreach (var item in dogs.Where(d => (selectedBreed1 == "" || d.Breed1.Description == selectedBreed1) && (selectedBreed2 == "" || d.Breed2.Description == selectedBreed2)))*@
-                @*@foreach (var item in dogs)*@
+
                 {
                                 <tr>
                                     <td>@item.Name</td>
@@ -84,7 +83,7 @@ else
                                     <td>@item.Dogowner.Id</td>
 
                                     <td><button class="btn btn-warning" @onclick="(() =>DeleteDog(item.Id))">Delete</button></td>
-                                    <td><button class="btn btn-warning"  @onclick="(() =>NavigateToEditDog(item.Id))">Edit Dog</button></td>
+                                    <td></td>
                        
                                 </tr>
                 }
@@ -137,13 +136,6 @@ else
         NavigationManager.NavigateTo($"/Dogowners/view");
     }
 
-    private void NavigateToEditDog(int id)
-    {
-
-        NavigationManager.NavigateTo($"/dogs/edit/{id}");
-    }
-
-    
 
     private async Task SearchDogs()
 {
