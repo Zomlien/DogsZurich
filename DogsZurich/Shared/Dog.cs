@@ -37,7 +37,7 @@ namespace DogsZurich.Shared
         public int BreedtypeId { get; set; }
         public Breedtype? Breedtype { get; set; }
         [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Bitte wählen Sie Ihre Bisityer ID aus")]
+        [Range(1, int.MaxValue, ErrorMessage = "Bitte wählen Sie Ihre Besitzer ID aus")]
         public int DogownerId { get; set; }
         public Dogowner? Dogowner { get; set; }
         
